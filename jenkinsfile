@@ -1,0 +1,33 @@
+pipeline {
+  agent any
+    stages { 
+        stage('clone') {
+          steps {
+            git branch: 'main', credentialsId: 'github-tocken', url: 'https://github.com/DevOpsSecOps1/MicroService.git'
+            echo 'Clone is susscessful from github'
+          }
+        }
+        stage (parallel) {
+          parallel {
+                stage('build-linux') {
+                   agent any
+                    steps {
+                      //dir('/home/test/build') {
+                      //}
+                      sh "mvn clean install"
+                      echo 'Build is suscess using maven'
+                   }
+                }
+                stage('Build-windows') {
+                  agent any
+                  steps {
+                    //dir('/home/release/windows/build') {
+                    //}
+                    sh "mvn clean install"
+                     echo 'Build is suscess using maven'
+                 }
+              }
+            }
+        }
+    }
+}
