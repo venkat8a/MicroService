@@ -21,12 +21,13 @@ pipeline {
       }
       stage('Deployment') {
         steps {
-          sshagent(['Deployment_3.95.7.186'])
+          sshagent(['Deployment_3.95.7.186']) {
           sh """
           scp -rp target/*.jar ec2-user@3.95.7.186:/opt/apache-tomcat-8.5.84/webapps
           ssh ec2-user@3.95.7.186:/opt/apache-tomcat-8.5.84/bin/shutdown.sh
           ssh ec2-user@3.95.7.186:/opt/apache-tomcat-8.5.84/bin/startup.sh
           """
+          }
         }
       }
     }
