@@ -33,7 +33,7 @@ pipeline {
         steps {
           sshagent(['Deployment_3.95.7.186']) {
           sh """
-          scp -rp target/*.jar ec2-user@44.206.244.21:/opt/apache-tomcat-8.5.84/webapps
+          scp -rp /home/ec2-user/.jenkins/workspace/Deployment_Job/target/*.jar ec2-user@44.206.244.21:/opt/apache-tomcat-8.5.84/webapps
           ssh ec2-user@44.206.244.21:/opt/apache-tomcat-8.5.84/bin/shutdown.sh
           ssh ec2-user@44.206.244.21:/opt/apache-tomcat-8.5.84/bin/startup.sh
           """
