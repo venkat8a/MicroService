@@ -1,6 +1,6 @@
 pipeline {
   //agent any
-  agent {label 'Built-In Node'}
+  agent {label 'master'}
     stages { 
       //stage('clone') {
         //steps {
@@ -9,14 +9,14 @@ pipeline {
         //}
       //}
       stage('build') {
-       agent {label 'Built-In Node'}
+       agent {label 'master'}
         steps {
           sh "mvn clean package"
           echo 'Build is suscess using maven'
         }
       }
       stage('Test') {
-        agent {label 'Built-In Node'}
+        agent {label 'master'}
         steps {
           sh "mvn test"
           echo 'Test cases executed successfully'
