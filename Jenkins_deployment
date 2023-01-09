@@ -2,7 +2,7 @@ pipeline {
   //agent any
   //agent {label 'master'}
   agent {
-        label 'master'
+        label 'master1'
     }
     stages { 
       //stage('clone') {
@@ -13,7 +13,7 @@ pipeline {
       //}
       stage('build') {
        agent {
-        label 'master'
+        label 'master1'
        }
         steps {
           sh "mvn clean package"
@@ -22,7 +22,7 @@ pipeline {
       }
       stage('Test') {
         agent {
-        label 'master'
+        label 'master1'
         }
         steps {
           sh "mvn test"
@@ -31,11 +31,11 @@ pipeline {
       }
       stage('Deployment') {
         steps {
-          sshagent(['Deployment_3.95.7.186']) {
+          sshagent(['Deployment_54.88.196.251']) {
           sh """
-          scp -rp /home/ec2-user/.jenkins/workspace/Deployment_Job/target/*.jar ec2-user@44.206.244.21:/opt/apache-tomcat-8.5.84/webapps
-          ssh ec2-user@44.206.244.21 /opt/apache-tomcat-8.5.84/bin/shutdown.sh
-          ssh ec2-user@44.206.244.21 /opt/apache-tomcat-8.5.84/bin/startup.sh
+          scp -rp /home/ec2-user/.jenkins/workspace/Deployment_Job/target/*.jar ec2-user@54.88.196.251:/opt/apache-tomcat-8.5.84/webapps
+          ssh ec2-user@54.88.196.251 /opt/apache-tomcat-8.5.84/bin/shutdown.sh
+          ssh ec2-user@54.88.196.251 /opt/apache-tomcat-8.5.84/bin/startup.sh
           """
           }
         }
