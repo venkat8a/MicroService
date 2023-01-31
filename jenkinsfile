@@ -19,5 +19,14 @@ pipeline {
           echo 'Test cases executed successfully'
         }
       }
+      stage('Sonarqube') {
+         environment {
+           scannerHome = tool 'Sonar-Scanner'
+         }
+        steps {
+           withSonarQubeEnv('SonarQube') {
+            sh "${scannerHome}/bin/sonar-scanner"
+       }
     }
+  }
 }
